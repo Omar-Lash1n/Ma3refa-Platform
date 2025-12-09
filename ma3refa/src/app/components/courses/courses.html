@@ -1,0 +1,41 @@
+<section class="courses-section">
+  <div class="container">
+    
+    <div class="section-header">
+      <span class="badge">مسارات تعليمية</span>
+      <h2>أحدث <span class="highlight">الكورسات</span> المضافة</h2>
+      <p>اختر المجال الذي يناسب شغفك وابدأ التعلم الآن</p>
+    </div>
+
+    <div class="courses-grid">
+      
+      @for (course of courses; track course.id) {
+        
+        <div class="course-card">
+          
+          <div class="card-image" [style.background-color]="course.color + '20'"> 
+            <img [src]="course.image" [alt]="course.title">
+            <span class="category-badge">{{ course.category }}</span>
+          </div>
+
+          <div class="card-content">
+            <h3>{{ course.title }}</h3>
+            
+            <div class="card-meta">
+              <span>📚 {{ course.lessons }} درس</span>
+              <span>⭐ 4.9</span>
+            </div>
+
+            <button class="btn-card">عرض التفاصيل</button>
+          </div>
+
+        </div>
+
+      } </div>
+
+    <div class="center-btn">
+      <a href="#" class="btn btn-outline">تصفح كل الكورسات</a>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap');
+/* 2. Global Variables (The Source of Truth) */
+:root {
+    /* --- Light Mode (Default) --- */
+    --primary-color: #4f4ab7;       /* البنفسجي الأساسي */
+    --accent-color: #00E676;        /* أخضر فوسفوري للأزرار الثانوية */
+    
+    --bg-main: #f1f1f1;             /* خلفية الموقع الأساسية */
+    --bg-card: #FFFFFF;             /* خلفية الكروت والقوائم */
+    
+    --text-main: #212121;           /* النص الرئيسي (أسود هادي) */
+    --text-muted: #757575;          /* النص الفرعي (رمادي) */
+    --text-inverted: #FFFFFF;       /* النص اللي على خلفية غامقة */
+
+    --font-ar: 'Cairo', sans-serif;
+    --font-en: 'Poppins', sans-serif;
+}
+
+/* --- Dark Mode Override (هنفعل الكلاس ده بالجافاسكريبت بعدين) --- */
+body.dark-theme {
+    --primary-color: #8A85FF;       /* بنفسجي أفتح عشان ينور في الضلمة */
+    --bg-main: #121212;             /* خلفية كحلي غامق جداً */
+    --bg-card: #1E1E1E;             /* رمادي غامق للكروت */
+    
+    --text-main: #E0E0E0;           /* النص بيتحول لأبيض */
+    --text-muted: #B0B0B0;
+}
+
+/* 3. Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-ar); /* الافتراضي عربي */
+    direction: rtl;              /* الافتراضي يمين ليسار */
+    transition: background-color 0.3s ease, color 0.3s ease; /* نعومة في تغيير الثيم */
+}

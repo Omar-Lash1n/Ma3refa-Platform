@@ -1,0 +1,161 @@
+.hero-section {
+  padding: 4rem 0;
+  background-color: var(--bg-main);
+  min-height: 85vh; /* يغطي أغلب الشاشة */
+  display: flex;
+  align-items: center; /* يسنتر المحتوى رأسياً */
+  overflow: hidden; /* عشان لو تأثير الإضاءة خرج بره */
+}
+
+/* بنكرر كلاس الكونتينر عشان نضمن نفس المحاذاة مع النافبار */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem; /* مسافة بين الكلام والصورة */
+  flex-wrap: wrap-reverse; /* في الموبايل يعكس الترتيب */
+}
+
+/* --- تنسيق النصوص --- */
+.hero-content {
+  flex: 1; /* ياخد نص المساحة */
+  max-width: 600px;
+}
+
+.badge {
+  background-color: rgba(108, 99, 255, 0.1); /* بنفسجي شفاف */
+  color: var(--primary-color);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+h1 {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+.highlight {
+  color: var(--primary-color);
+  position: relative;
+}
+
+/* رسمة خط تحت الكلمة المهمة (شكل جمالي) */
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  width: 100%;
+  height: 10px;
+  background-color: var(--accent-color);
+  opacity: 0.3;
+  z-index: -1;
+  border-radius: 5px;
+}
+
+p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.8;
+  max-width: 90%;
+}
+
+/* --- تنسيق الأزرار --- */
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-inverted);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(108, 99, 255, 0.2);
+}
+
+.btn-outline {
+  border: 2px solid var(--text-muted);
+  color: var(--text-main);
+}
+.btn-outline:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* --- تنسيق الصورة --- */
+.hero-image {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 500px; /* حجم أقصى للصورة */
+  border-radius: 20px;
+  /* حركة بسيطة للصورة تخليها تطفو */
+  animation: float 6s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+
+/* تأثير الوهج البنفسجي ورا الصورة */
+.glow-effect {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: var(--primary-color);
+  filter: blur(80px); /* يسيح اللون */
+  opacity: 0.3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  border-radius: 50%;
+}
+
+/* أنيميشن الطفو */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+/* --- للتجاوب مع الموبايل --- */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse; /* اعكس الترتيب، الصورة فوق والكلام تحت */
+    text-align: center;
+  }
+  
+  h1 { font-size: 2.5rem; }
+  
+  .hero-btns {
+    justify-content: center;
+  }
+  
+  p { margin: 0 auto 2rem auto; }
+}
