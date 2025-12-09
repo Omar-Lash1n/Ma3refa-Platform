@@ -1,0 +1,54 @@
+<section class="contact-section">
+  <div class="container">
+    
+    <div class="contact-info">
+      <span class="badge">تواصل معنا</span>
+      <h2>هل لديك استفسار؟ <br> نحن هنا <span class="highlight">لمساعدتك</span></h2>
+      <p>
+        فريق دعم "معرفة" جاهز للإجابة على استفساراتك. سواء كنت تواجه مشكلة تقنية أو تريد معرفة المزيد عن مساراتنا التعليمية.
+      </p>
+
+      <div class="info-items">
+        <div class="item">
+          <span class="icon">📧</span>
+          <div>
+            <strong>البريد الإلكتروني</strong>
+            <span>support@ma3refa.com</span>
+          </div>
+        </div>
+        
+        <div class="item">
+          <span class="icon">📍</span>
+          <div>
+            <strong>المقر الرئيسي</strong>
+            <span>القرية الذكية، الجيزة، مصر</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrapper">
+      <form class="contact-form" (submit)="$event.preventDefault()">
+        
+        <div class="form-group">
+          <label for="name">الاسم الكامل</label>
+          <input type="text" id="name" placeholder="مثال: أحمد محمد">
+        </div>
+
+        <div class="form-group">
+          <label for="email">البريد الإلكتروني</label>
+          <input type="email" id="email" placeholder="name@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="message">رسالتك</label>
+          <textarea id="message" rows="5" placeholder="كيف يمكننا مساعدتك؟"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">إرسال الرسالة</button>
+      
+      </form>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,128 @@
+.features-section {
+  padding: 5rem 0;
+  background-color: var(--bg-main); /* نرجع للون الفاتح تاني للتباين */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+/* --- النصوص --- */
+.features-content {
+  flex: 1;
+}
+
+.section-subtitle {
+  color: var(--accent-color); /* لون مختلف هنا (أخضر) عشان يليق مع النبتة */
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+}
+
+.highlight {
+  color: var(--primary-color);
+  background: linear-gradient(120deg, transparent 0%, transparent 60%, rgba(108, 99, 255, 0.2) 60%);
+}
+
+p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+/* --- الكروت الصغيرة --- */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* تجاوب تلقائي */
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: 0.3s;
+  border: 1px solid transparent;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 20px rgba(108, 99, 255, 0.1);
+}
+
+.feature-card .icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* --- الصورة --- */
+.features-image {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.features-image img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* شكل جمالي ورا الصورة (دائرة خضراء فاتحة تليق مع النبتة) */
+.img-bg-shape {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(0, 230, 118, 0.1); /* أخضر شفاف */
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* شكل عشوائي */
+  top: 10%;
+  left: -10%;
+  z-index: 1;
+  animation: morph 8s ease-in-out infinite;
+}
+
+@keyframes morph {
+  0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+  100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+}
+
+/* --- للموبايل --- */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse; /* الصورة فوق */
+  }
+}
