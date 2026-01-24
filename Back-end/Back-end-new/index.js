@@ -1,4 +1,3 @@
-
 // ============================================
 // app.js - Main Application File
 // ============================================
@@ -14,18 +13,30 @@ const app = express();
 
 // ============================================
 // MIDDLEWARE
-// ============================================
-app.use(express.json());
+// Preserve raw body buffer for webhook signature verification (Stripe)
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json({
+  verify: (req, res, buf) => {
+    // Save raw buffer for webhook signature verification
+    req.rawBody = buf;
+  }
+}));
 app.use(cors());
 
-
-// add near other requires
+// ============================================
+// IMPORT ROUTES
+// Note: keep these requires after express setup
+const studentRoutes = require('./routes/studentRoute');
+const teacherRoutes = require('./routes/teacherRoute');
+const adminRoutes = require('./routes/adminRoute');
+const courseRoutes = require('./routes/courseRoute');
+const paymentRoutes = require('./routes/paymentRoute');
+const teacherEarningsRoutes = require('./routes/teacherEarningsRoute');
+const subjectRoutes = require('./routes/subjectRoute');
+const notificationRoutes = require('./routes/notificationRoute');
+const reviewRoutes = require('./routes/reviewRoute');
+const platformSettingsRoutes = require('./routes/platformRoute');
 const paymentWebhookRoutes = require('./routes/paymentWebhookRoute');
-
-// after mounting paymentRoutes
-app.use('/api/payments', paymentRoutes);
-app.use('/api/payments/webhook', paymentWebhookRoutes);
 
 // ============================================
 // DATABASE CONNECTION
@@ -46,20 +57,6 @@ const connectDB = async () => {
 connectDB();
 
 // ============================================
-// IMPORT ROUTES
-// ============================================
-const studentRoutes = require('./routes/studentRoute');
-const teacherRoutes = require('./routes/teacherRoute');
-const adminRoutes = require('./routes/adminRoute');
-const courseRoutes = require('./routes/courseRoute');
-const paymentRoutes = require('./routes/paymentRoute');
-const teacherEarningsRoutes = require('./routes/teacherEarningsRoute');
-const subjectRoutes = require('./routes/subjectRoute');
-const notificationRoutes = require('./routes/notificationRoute');
-const reviewRoutes = require('./routes/reviewRoute');
-const platformSettingsRoutes = require('./routes/platformRoute');
-
-// ============================================
 // USE ROUTES
 // ============================================
 app.use('/api/students', studentRoutes);
@@ -72,6 +69,9 @@ app.use('/api/subjects', subjectRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/settings', platformSettingsRoutes);
+
+// Mount webhook / capture routes for payments
+app.use('/api/payments/webhook', paymentWebhookRoutes);
 
 // ============================================
 // HOME ROUTE
@@ -100,9 +100,9 @@ app.get('/', (req, res) => {
 // 404 HANDLER
 // ============================================
 app.use((req, res) => {
-  res.status(404).json({ 
+  res.status(404).json({
     message: "Route not found",
-    path: req.originalUrl 
+    path: req.originalUrl
   });
 });
 
@@ -111,9 +111,8 @@ app.use((req, res) => {
 // ============================================
 app.use((err, req, res, next) => {
   console.error('Error:', err.stack);
-  res.status(err.status || 500).json({ 
-    message: "Something went wrong!", 
-    error: process.env.NODE_ENV === 'development' ? err.message : 'Internal Server Error'
+  res.status(err.status || 500).json({
+    message: err.message || "Internal Server Error"
   });
 });
 
@@ -121,16 +120,6 @@ app.use((err, req, res, next) => {
 // START SERVER
 // ============================================
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(` Server running on port ${PORT}`);
-  console.log(` Environment: ${process.env.NODE_ENV || 'development'}`);
-});
-
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
-  console.error('Unhandled Rejection:', err);
-  process.exit(1);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 module.exports = app;

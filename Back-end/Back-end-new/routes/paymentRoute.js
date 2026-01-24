@@ -1,13 +1,6 @@
-// ============================================
-// ROUTES - paymentRoutes.js
-// ============================================
 const express = require("express");
 const router = express.Router();
-const {
-  createPayment,
-  getStudentPayments,
-  getAllPayments
-} = require("../controller/paymentController");
+const { createPayment, getStudentPayments, getAllPayments } = require("../controller/paymentController");
 const { authStudent, authAdmin } = require("../controller/auth");
 
 // Student Routes
