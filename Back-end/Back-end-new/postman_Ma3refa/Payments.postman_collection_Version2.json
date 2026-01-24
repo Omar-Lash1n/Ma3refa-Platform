@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "Ma3refa Platform - Payments",
+    "_postman_id": "ma3refa-payments-collection",
+    "description": "Postman collection to test payment endpoints (stripe, paypal, paymob, fake).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Payment - Stripe",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{JWT_TOKEN}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"payment_method\": \"stripe\",\n  \"purchased_sections\": [\n    { \"section_id\": \"s1\", \"course_id\": \"c1\", \"section_price\": 10, \"teacher_id\": \"t1\" }\n  ]\n}"
+        },
+        "url": { "raw": "{{BACKEND_URL}}/api/payments/create", "host": ["{{BACKEND_URL}}"], "path": ["api","payments","create"] }
+      }
+    },
+    {
+      "name": "Create Payment - PayPal",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{JWT_TOKEN}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"payment_method\": \"paypal\",\n  \"purchased_sections\": [\n    { \"section_id\": \"s1\", \"course_id\": \"c1\", \"section_price\": 10, \"teacher_id\": \"t1\" }\n  ]\n}"
+        },
+        "url": { "raw": "{{BACKEND_URL}}/api/payments/create", "host": ["{{BACKEND_URL}}"], "path": ["api","payments","create"] }
+      }
+    },
+    {
+      "name": "Create Payment - Paymob",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{JWT_TOKEN}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"payment_method\": \"paymob\",\n  \"billing_data\": {\"email\":\"test@example.com\",\"first_name\":\"Test\",\"phone_number\":\"01000000000\"},\n  \"purchased_sections\": [\n    { \"section_id\": \"s1\", \"course_id\": \"c1\", \"section_price\": 10, \"teacher_id\": \"t1\" }\n  ]\n}"
+        },
+        "url": { "raw": "{{BACKEND_URL}}/api/payments/create", "host": ["{{BACKEND_URL}}"], "path": ["api","payments","create"] }
+      }
+    },
+    {
+      "name": "Create Payment - Fake (Dev)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{JWT_TOKEN}}", "type": "text" },
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"payment_method\": \"fake\",\n  \"purchased_sections\": [\n    { \"section_id\": \"s1\", \"course_id\": \"c1\", \"section_price\": 10, \"teacher_id\": \"t1\" }\n  ]\n}"
+        },
+        "url": { "raw": "{{BACKEND_URL}}/api/payments/create", "host": ["{{BACKEND_URL}}"], "path": ["api","payments","create"] }
+      }
+    },
+    {
+      "name": "Simulate Fake Payment Success",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{BACKEND_URL}}/api/payments/webhook/simulate?paymentId={{PAYMENT_ID}}&status=Successful", "host": ["{{BACKEND_URL}}"], "path": ["api","payments","webhook","simulate"], "query": [ { "key": "paymentId", "value": "{{PAYMENT_ID}}" }, { "key": "status", "value": "Successful" } ] }
+      }
+    },
+    {
+      "name": "PayPal Capture (call after user approves)",
+      "request": {
+        "method": "POST",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "body": { "mode": "raw", "raw": "{ \"orderId\": \"{{PAYPAL_ORDER_ID}}\", \"paymentId\": \"{{PAYMENT_ID}}\" }" },
+        "url": { "raw": "{{BACKEND_URL}}/api/payments/webhook/capture-paypal", "host": ["{{BACKEND_URL}}"], "path": ["api","payments","webhook","capture-paypal"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "BACKEND_URL", "value": "http://localhost:5000" },
+    { "key": "JWT_TOKEN", "value": "" },
+    { "key": "PAYMENT_ID", "value": "" },
+    { "key": "PAYPAL_ORDER_ID", "value": "" }
+  ]
+}
