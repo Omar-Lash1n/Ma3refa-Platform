@@ -19,6 +19,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+
+// add near other requires
+const paymentWebhookRoutes = require('./routes/paymentWebhookRoute');
+
+// after mounting paymentRoutes
+app.use('/api/payments', paymentRoutes);
+app.use('/api/payments/webhook', paymentWebhookRoutes);
+
 // ============================================
 // DATABASE CONNECTION
 // ============================================
